@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  odoo:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${ODOO_PORT:-8069}:8069"
+      - "${ODOO_LONGPOLL_PORT:-8072}:8072"
+    volumes:
+      - odoo-filestore:/var/lib/odoo
+      - ./extra-addons:/mnt/extra-addons
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+    restart: unless-stopped
+
+volumes:
+  pg-data:
+  odoo-filestore:

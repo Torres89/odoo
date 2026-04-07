@@ -1,0 +1,36 @@
+# Extra addon dependencies (not part of core Odoo)
+# Install order: base deps first, then provider-specific
+
+# --- llm (base) + llm_thread (chat) + llm_tool ---
+packaging
+emoji
+markdown2
+mcp
+pydantic>=2.0.0
+
+# --- llm_openai ---
+openai
+
+# --- llm_anthropic ---
+anthropic
+
+# --- llm_knowledge (RAG) ---
+# markdownify
+# PyMuPDF
+# numpy
+# requests  # already in Odoo core
+
+# --- llm_ollama (local models) ---
+# ollama
+
+# --- llm_mistral ---
+# mistralai
+
+# --- llm_pgvector (vector store via PostgreSQL) ---
+# pgvector
+# numpy
+
+# --- llm_mcp_server ---
+# mcp
+
+# Uncomment lines above as you enable more modules.
