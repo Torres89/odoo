@@ -18,6 +18,9 @@ __pycache__/
 # hg stuff
 *.orig
 status
+# SSH keypairs
+keypair/
+
 # odoo filestore
 odoo/filestore
 # maintenance migration scripts

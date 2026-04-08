@@ -29,6 +29,7 @@ services:
       HOST: db
       USER: odoo
       PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+    command: ["--config=/etc/odoo/odoo.conf", "--admin_passwd=${ADMIN_PASSWD:-admin}"]
     restart: unless-stopped
 
 volumes:

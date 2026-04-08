@@ -1,0 +1,32 @@
+services:
+  odoo:
+    image: ghcr.io/${GH_USER_OR_ORG}/odoo-erp:latest
+    build: !reset null
+    ports: !reset
+      - "127.0.0.1:8069:8069"
+      - "127.0.0.1:8072:8072"
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: ${POSTGRES_PASSWORD}
+
+  db:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - odoo
+
+volumes:
+  caddy-data:
+  caddy-config:
