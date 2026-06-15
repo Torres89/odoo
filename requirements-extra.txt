@@ -8,6 +8,11 @@ markdown2
 mcp
 pydantic>=2.0.0
 
+# --- llm_assistant ---
+jinja2
+pyyaml
+jsonschema
+
 # --- llm_openai ---
 openai
 
